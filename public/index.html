@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<title>Notes</title>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1>Notes</h1>
+			<input type="text" name="search-bar" id="search-bar" placeholder="Search">
+		</div>
+		<div id="main">
+		</div>
+		<div id="create-note">
+			<form action="/notes", method="POST">
+				<label for="new-note-title">Title:</label>
+				<input type="text" name="new-note-title" id="new-note-title"><br>
+				<label for="new-note-content">Content:</label>
+				<input type="text" name="new-note-content" id="new-note-content"><br>
+				<input type="submit" name="submit">
+			</form>
+		</div>
+	</div>
+</body>
+</html>

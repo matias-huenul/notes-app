@@ -1,0 +1,64 @@
+body {
+	position: absolute;
+	background-color: #35373d;
+	width: 100%;
+}
+
+*:focus {
+	outline: none;
+	border-bottom: 1px solid gray;
+}
+
+#container {
+	position: relative;
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	border: 1px solid gray;
+}
+
+#container > div {
+	border-bottom: 1px solid gray;
+}
+
+#container:last-child {
+	border-bottom: none;
+}
+
+#header {
+	text-align: center;
+	padding-top: 1%;
+	padding-bottom: 2%;
+}
+
+#search-bar {
+	border: none;
+	border-bottom: 1px solid gray;
+	background-color: inherit;
+	font-size: 16px;
+}
+
+#main {
+	position: relative;
+	padding-left: 5%;
+	padding-right: 5%;
+	text-align: center;
+}
+
+.note {
+	position: relative;
+	display: inline-grid;
+	/*width: 40%;*/
+	min-width: 20%;
+	max-width: 40%;
+	min-height: 128px;
+	border: 1px solid gray;
+	text-align: left;
+	margin-right: 1%;
+	margin-left: 1%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding-left: 1%;
+	padding-right: 1%;
+}
+
