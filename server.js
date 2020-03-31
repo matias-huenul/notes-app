@@ -26,18 +26,40 @@ app.get("/notes", function(request, response) {
 	});
 });
 
+app.get("/notes/last", function(request, response) {
+	db.all("SELECT * FROM notes order by id desc limit 1", function(err, rows) {
+		if (err) {
+
+		} else {
+			response.send(rows);
+		}
+	});
+})
+
 app.post("/notes", function(request, response) {
-	db.run(
-		"INSERT INTO notes (content) values (?)",
-		[request.body["new-note-content"]],
-		function (err) {
+	console.log(1);
+	console.log(request.body.content);
+	if (!request.body.noteId) {
+		db.run(
+			"INSERT INTO notes (content) values (?)",
+			[request.body.noteContent],
+			function (err) {
+				if (err) {
+					console.log("Error " + err);
+				} else {
+					response.status(200).redirect("index.html");
+				}
+			}
+		);
+	} else {
+		db.run("UPDATE notes set content = ? where id = ?", [request.body.content, request.body.noteId], function(err) {
 			if (err) {
-				console.log("Error " + err);
+
 			} else {
 				response.status(200).redirect("index.html");
 			}
-		}
-	);
+		});
+	}
 });
 
 app.post("/notes/delete", function(request, response) {

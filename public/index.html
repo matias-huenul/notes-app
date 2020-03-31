@@ -13,15 +13,10 @@
 			<input type="text" name="search-bar" id="search-bar" placeholder="Search">
 		</div>
 		<div id="main">
-		</div>
-		<div id="create-note">
-			<form action="/notes", method="POST">
-				<label for="new-note-title">Title:</label>
-				<input type="text" name="new-note-title" id="new-note-title"><br>
-				<label for="new-note-content">Content:</label>
-				<input type="text" name="new-note-content" id="new-note-content"><br>
-				<input type="submit" name="submit">
-			</form>
+			<div id="new-note" class="note">
+				<textarea spellcheck="false" placeholder="Create a new note..."></textarea>
+				<button id="new-note-button" onclick="createNote()">Create</button>
+			</div>
 		</div>
 	</div>
 </body>

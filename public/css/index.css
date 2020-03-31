@@ -2,6 +2,7 @@ body {
 	position: absolute;
 	background-color: #35373d;
 	width: 100%;
+	font-family: arial;
 }
 
 *:focus {
@@ -48,10 +49,10 @@ body {
 .note {
 	position: relative;
 	display: inline-grid;
-	/*width: 40%;*/
-	min-width: 20%;
-	max-width: 40%;
-	min-height: 128px;
+	width: 40%;
+	/*min-width: 20%;*/
+	/*max-width: 40%;*/
+	min-height: 256px;
 	border: 1px solid gray;
 	text-align: left;
 	margin-right: 1%;
@@ -62,3 +63,20 @@ body {
 	padding-right: 1%;
 }
 
+.note > textarea {
+	position: relative;
+	background-color: inherit;
+	border: none;
+	width: 90%;
+	resize: none;
+	height: 180px;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+#new-note-button, .delete-note-button {
+	position: relative;
+	width: 25%;
+	background-color: inherit;
+	height: 22px;
+}
