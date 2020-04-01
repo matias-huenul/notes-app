@@ -17,10 +17,8 @@ app.get("/", function(request, response) {
 app.get("/notes", function(request, response) {
 	db.all("SELECT * FROM notes", function(err, rows) {
 		if (err) {
-			console.log("An error has ocurred");
-			console.log(err);
+			console.log("Error: " + err);
 		} else {
-			console.log("get success");
 			response.send(rows);
 		}
 	});
@@ -29,7 +27,7 @@ app.get("/notes", function(request, response) {
 app.get("/notes/last", function(request, response) {
 	db.all("SELECT * FROM notes order by id desc limit 1", function(err, rows) {
 		if (err) {
-
+			console.log("Error: " + err);
 		} else {
 			response.send(rows[0]);
 		}
@@ -37,43 +35,33 @@ app.get("/notes/last", function(request, response) {
 })
 
 app.post("/notes", function(request, response) {
-	console.log(1);
-	console.log(request.body.content);
 	if (!request.body.id) {
-		db.run(
-			"INSERT INTO notes (content) values (?)",
-			[request.body.content],
-			function (err) {
-				if (err) {
-					console.log("Error " + err);
-				} else {
-					response.status(200).redirect("index.html");
-				}
+		db.run("INSERT INTO notes (content) values (?)", [request.body.content], function (err) {
+			if (err) {
+				console.log("Error: " + err);
+			} else {
+				response.status(200);
 			}
-		);
+		});
 	} else {
 		db.run("UPDATE notes set content = ? where id = ?", [request.body.content, request.body.id], function(err) {
 			if (err) {
-
+				console.log("Error: " + err)
 			} else {
-				response.status(200).redirect("index.html");
+				response.status(200);
 			}
 		});
 	}
 });
 
 app.post("/notes/delete", function(request, response) {
-	db.run(
-		"DELETE FROM notes where id = ?",
-		[request.body.id],
-		function(err) {
-			if (err) {
-				console.log("Error: " + err);
-			} else {
-				response.status(200).redirect("../index.html");
-			}
+	db.run("DELETE FROM notes where id = ?", [request.body.id], function(err) {
+		if (err) {
+			console.log("Error: " + err);
+		} else {
+			response.status(200);
 		}
-	);
+	});
 });
 
 app.listen(port, function() {
