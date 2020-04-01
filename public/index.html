@@ -2,7 +2,9 @@
 <html>
 <head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/model.js"></script>
+	<script type="text/javascript" src="js/view.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<title>Notes</title>
 </head>
@@ -15,7 +17,7 @@
 		<div id="main">
 			<div id="new-note" class="note">
 				<textarea spellcheck="false" placeholder="Create a new note..."></textarea>
-				<button id="new-note-button" onclick="createNote()">Create</button>
+				<button id="new-note-button" onclick="app.createNote()">Create</button>
 			</div>
 		</div>
 	</div>

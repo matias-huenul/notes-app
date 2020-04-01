@@ -31,7 +31,7 @@ app.get("/notes/last", function(request, response) {
 		if (err) {
 
 		} else {
-			response.send(rows);
+			response.send(rows[0]);
 		}
 	});
 })
@@ -39,10 +39,10 @@ app.get("/notes/last", function(request, response) {
 app.post("/notes", function(request, response) {
 	console.log(1);
 	console.log(request.body.content);
-	if (!request.body.noteId) {
+	if (!request.body.id) {
 		db.run(
 			"INSERT INTO notes (content) values (?)",
-			[request.body.noteContent],
+			[request.body.content],
 			function (err) {
 				if (err) {
 					console.log("Error " + err);
@@ -52,7 +52,7 @@ app.post("/notes", function(request, response) {
 			}
 		);
 	} else {
-		db.run("UPDATE notes set content = ? where id = ?", [request.body.content, request.body.noteId], function(err) {
+		db.run("UPDATE notes set content = ? where id = ?", [request.body.content, request.body.id], function(err) {
 			if (err) {
 
 			} else {
@@ -65,7 +65,7 @@ app.post("/notes", function(request, response) {
 app.post("/notes/delete", function(request, response) {
 	db.run(
 		"DELETE FROM notes where id = ?",
-		[request.body.noteId],
+		[request.body.id],
 		function(err) {
 			if (err) {
 				console.log("Error: " + err);
