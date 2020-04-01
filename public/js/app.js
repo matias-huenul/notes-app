@@ -18,6 +18,18 @@ let app = {
 		model.note.getLast(view.note.render);
 		view.note.clearNewNoteContent();
 	},
+	filterNotes: function() {
+		let query = view.searchBar.getValue();
+		model.note.getAll(function(notes) {
+			notes.forEach(function(note) {
+				if (note.content.includes(query)) {
+					view.note.get(note.id).show();
+				} else {
+					view.note.get(note.id).hide();
+				}
+			});
+		});
+	},
 	start: function() {
 		model.note.getAll(function(notes) {
 			notes.forEach(view.note.render);

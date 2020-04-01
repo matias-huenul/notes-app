@@ -31,11 +31,19 @@ let view = {
 		clearNewNoteContent: function() {
 			$("#new-note > textarea").val("");
 		},
+		get: function(id) {
+			return $(".note[note-id='" + id + "'");
+		},
 		getTextArea: function(id) {
 			return $(".note[note-id='" + id + "'] > textarea");
 		},
 		getDeleteButton: function(id) {
 			return $(".note[note-id='" + id + "'] > .delete-note-button");
+		}
+	},
+	searchBar: {
+		getValue: function() {
+			return $("#search-bar").val();
 		}
 	}
 };
