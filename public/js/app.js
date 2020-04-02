@@ -19,10 +19,10 @@ let app = {
 		view.note.clearNewNoteContent();
 	},
 	filterNotes: function() {
-		let query = view.searchBar.getValue();
+		let query = view.searchBar.getValue().toLowerCase();
 		model.note.getAll(function(notes) {
 			notes.forEach(function(note) {
-				if (note.content.includes(query)) {
+				if (note.content.toLowerCase().includes(query)) {
 					view.note.get(note.id).show();
 				} else {
 					view.note.get(note.id).hide();
