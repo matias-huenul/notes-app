@@ -6,13 +6,17 @@
 	<script type="text/javascript" src="js/view.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="fontawesome-free-5.13.0-web/css/all.css">
 	<title>Notes</title>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
 			<h1>Notes</h1>
-			<input type="text" name="search-bar" id="search-bar" placeholder="Search" onkeyup="app.filterNotes()">
+			<div id="search">
+				<input type="text" name="search-bar" id="search-bar" placeholder="Search" onkeyup="app.filterNotes()">
+				<i class="fas fa-search"></i>
+			</div>
 		</div>
 		<div id="main">
 			<div id="new-note" class="note">

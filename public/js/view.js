@@ -6,6 +6,10 @@ let view = {
 				"note-id": note.id
 			});
 
+			let deleteIcon = $("<i/>", {
+				"class": "fas fa-trash"
+			});
+
 			divElement.append(
 				$("<textarea/>", {
 					"text": note.content,
@@ -13,7 +17,8 @@ let view = {
 				}).change(note, app.editNote),
 				$("<button/>", {
 					"text": "Delete",
-					"class": "delete-note-button"
+					"class": "delete-note-button",
+					"html": deleteIcon
 				}).click(note, app.deleteNote),
 			);
 
