@@ -1,6 +1,6 @@
 let view = {
 	note: {
-		render: function(note) {
+		render: function(note, newNote) {
 			let divElement = $("<div/>", {
 				"class": "note",
 				"note-id": note.id
@@ -22,7 +22,14 @@ let view = {
 				}).click(note, app.deleteNote),
 			);
 
-			$("#main").append(divElement);
+			if (newNote === true) {
+				divElement.insertBefore(".note:nth-child(2)");
+			} else {
+				$("#main").append(divElement);
+			}
+		},
+		renderNew: function(note) {
+			view.note.render(note, true);
 		},
 		remove: function(id) {
 			$(".note[note-id='" + id + "']").remove();

@@ -10,58 +10,50 @@ let db = new sqlite3.Database("db/notes.db");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.get("/", function(request, response) {
-	response.send("Hello from the server side");
-});
+function logError(request, error) {
+	console.log(`Error at ${request.method} ${request.url}: ${error}`);
+}
 
-app.get("/notes", function(request, response) {
-	db.all("SELECT * FROM notes", function(err, rows) {
+function getRows(query, request, response, oneRow) {
+	db.all(query, Object.values(request.query), function(err, rows) {
 		if (err) {
-			console.log("Error: " + err);
+			logError(request, err);
+		} else if (oneRow) {
+			response.send(rows[0]);
 		} else {
 			response.send(rows);
 		}
 	});
-});
+}
 
-app.get("/notes/last", function(request, response) {
-	db.all("SELECT * FROM notes order by id desc limit 1", function(err, rows) {
+function execute(query, request, response) {
+	db.run(query, Object.values(request.body), function(err) {
 		if (err) {
-			console.log("Error: " + err);
-		} else {
-			response.send(rows[0]);
-		}
-	});
-})
-
-app.post("/notes", function(request, response) {
-	if (!request.body.id) {
-		db.run("INSERT INTO notes (content) values (?)", [request.body.content], function (err) {
-			if (err) {
-				console.log("Error: " + err);
-			} else {
-				response.status(200);
-			}
-		});
-	} else {
-		db.run("UPDATE notes set content = ? where id = ?", [request.body.content, request.body.id], function(err) {
-			if (err) {
-				console.log("Error: " + err)
-			} else {
-				response.status(200);
-			}
-		});
-	}
-});
-
-app.post("/notes/delete", function(request, response) {
-	db.run("DELETE FROM notes where id = ?", [request.body.id], function(err) {
-		if (err) {
-			console.log("Error: " + err);
+			logError(request, err);
 		} else {
 			response.status(200);
 		}
 	});
+}
+
+app.get("/notes", function(request, response) {
+	getRows("SELECT * FROM notes ORDER BY id desc", request, response);
+});
+
+app.get("/notes/last", function(request, response) {
+	getRows("SELECT * FROM notes order by id desc limit 1", request, response, true);
+});
+
+app.post("/notes", function(request, response) {
+	if (!request.body.id) {
+		execute("INSERT INTO notes (content) values (?)", request, response);
+	} else {
+		execute("UPDATE notes set content = ? where id = ?", request, response);
+	}
+});
+
+app.post("/notes/delete", function(request, response) {
+	execute("DELETE FROM notes where id = ?", request, response);
 });
 
 app.listen(port, function() {

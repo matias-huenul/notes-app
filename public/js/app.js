@@ -15,7 +15,7 @@ let app = {
 			return alert("Can't create empty note");
 		}
 		model.note.create(content);
-		model.note.getLast(view.note.render);
+		model.note.getLast(view.note.renderNew);
 		view.note.clearNewNoteContent();
 	},
 	filterNotes: function() {
@@ -35,6 +35,6 @@ let app = {
 			notes.forEach(view.note.render);
 		});
 	}
-}
+};
 
 $(document).ready(app.start);
