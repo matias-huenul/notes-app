@@ -43,10 +43,9 @@ body {
 #header {
 	text-align: center;
 	padding-top: 1%;
-	padding-bottom: 2%;
-	/*background-color: #009688;*/
+	padding-bottom: 28px;
 	background-color: #607D8B;
-	margin-bottom: 2%;
+	margin-bottom: 28px;
 	box-shadow: 0px 3px 2px #BDBDBD;
 	font-family: 'Rock Salt', cursive;
 }
