@@ -55,7 +55,7 @@ body {
 	background-color: #FFFFFF;
 	display: table;
 	margin: 0 auto;
-	border-radius: 1%;
+	border-radius: 25px;
 	padding-left: 12px;
 	padding-right: 12px;
 	box-shadow: 3px 3px 1.5px #455A64;
@@ -97,6 +97,7 @@ body {
 	padding-right: 2%;
 	border-radius: .5%;
 	padding-top: 18px;
+	padding-bottom: 12px;
 	background-color: #FDF7E3;
 	border: 1px solid #F1E5BC;
 	box-shadow: 3px 3px 2px #BDBDBD;
@@ -109,7 +110,8 @@ body {
 	border: none;
 	width: 99%;
 	resize: none;
-	height: 180px;
+	/*height: 180px;*/
+	height: 200px;
 	font-family: inherit;
 	font-size: inherit;
 }
