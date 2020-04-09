@@ -23,7 +23,7 @@ let view = {
 			);
 
 			if (newNote === true) {
-				divElement.insertBefore(".note:nth-child(2)");
+				divElement.insertAfter("#new-note");
 			} else {
 				$("#main").append(divElement);
 			}
