@@ -4,7 +4,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/model.js"></script>
 	<script type="text/javascript" src="js/view.js"></script>
-	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="fontawesome-free-5.13.0-web/css/all.css">
 	<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -16,14 +16,14 @@
 		<div id="header">
 			<h1>Notes</h1>
 			<div id="search">
-				<input type="text" name="search-bar" id="search-bar" placeholder="Search" onkeyup="app.filterNotes()">
+				<input type="text" name="search-bar" id="search-bar" placeholder="Search" onkeyup="controller.filterNotes()">
 				<i class="fas fa-search"></i>
 			</div>
 		</div>
 		<div id="main">
 			<div id="new-note" class="note">
 				<textarea spellcheck="false" placeholder="Create a new note..."></textarea>
-				<button id="new-note-button" onclick="app.createNote()">Create</button>
+				<button id="new-note-button" onclick="controller.createNote()">Create</button>
 			</div>
 		</div>
 	</div>

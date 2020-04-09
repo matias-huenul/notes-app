@@ -1,19 +1,19 @@
 let model = {
 	note: {
-		create: function(content, callback) {
-			$.post("/notes", {"content": content}, callback);
+		create: function(content) {
+			return $.post("/notes", {content});
 		},
-		edit: function(id, content, callback) {
-			$.post("/notes", {"id": id, "content": content}, callback);
+		edit: function(id, content) {
+			return $.post("/notes", {id, content});
 		},
-		getAll: function(callback) {
-			$.get("/notes", callback);
+		getAll: function() {
+			return $.get("/notes");
 		},
-		getLast: function(callback) {
-			$.get("/notes/last", callback);
+		getLast: function() {
+			return $.get("/notes/last");
 		},
-		delete: function(id, callback) {
-			$.post("/notes/delete", {"id": id}, callback);
+		delete: function(id) {
+			return $.post("/notes/delete", {id});
 		}
 	}
 };
