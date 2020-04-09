@@ -14,12 +14,12 @@ let view = {
 				$("<textarea/>", {
 					"text": note.content,
 					"spellcheck": false
-				}).change(note, app.editNote),
+				}).change(note, controller.editNote),
 				$("<button/>", {
 					"text": "Delete",
 					"class": "delete-note-button",
 					"html": deleteIcon
-				}).click(note, app.deleteNote),
+				}).click(note, controller.deleteNote),
 			);
 
 			if (newNote === true) {
