@@ -30,7 +30,7 @@ function execute(query, args, response) {
 	db.run(query, args, function(err) {
 		if (err) {
 		} else {
-			response.status(200);
+			response.sendStatus(200);
 		}
 	});
 }
