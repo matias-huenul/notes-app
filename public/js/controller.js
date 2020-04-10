@@ -1,5 +1,14 @@
 let controller = {
-	defaultFolderId: 0,
+	createNote: function(event) {
+		let content = view.note.getNewNoteContent();
+		if (!content) {
+			return alert("Can't create empty note");
+		}
+		model.note.create(content)
+		.then(() => model.note.getLast())
+		.then(note => view.note.renderNew(note))
+		.then(() => view.note.clearNewNoteContent());
+	},
 	editNote: function(event) {
 		let content = view.note.getContent(event.data.id);
 		model.note.edit(event.data.id, content);
@@ -9,16 +18,6 @@ let controller = {
 			model.note.delete(event.data.id);
 			view.note.remove(event.data.id);
 		}
-	},
-	createNote: function(event) {
-		let content = view.note.getNewNoteContent();
-		if (!content) {
-			return alert("Can't create empty note");
-		}
-		model.note.create(content)
-		.then(model.note.getLast)
-		.then(view.note.renderNew)
-		.then(view.note.clearNewNoteContent);
 	},
 	filterNotes: function() {
 		let query = view.searchBar.getValue().toLowerCase();
