@@ -5,7 +5,9 @@ let sqlite3 = require("sqlite3");
 let bodyParser = require("body-parser");
 
 let app = express();
-let db = new sqlite3.Database("db/notes.db");
+let db = new sqlite3.Database("db/notes.db").run(
+	"CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT NOT NULL)"
+);
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: false}));
