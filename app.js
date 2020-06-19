@@ -1,68 +1,68 @@
 const port = 3000;
+const express = require("express");
+const bodyParser = require("body-parser");
+const note = require(`${__dirname}/models/Note`);
+const app = express();
 
-let express = require("express");
-let sqlite3 = require("sqlite3");
-let bodyParser = require("body-parser");
-
-let app = express();
-let db = new sqlite3.Database("db/notes.db").run(
-	"CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT NOT NULL)"
-);
-
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({extended: false}));
 
-function logError(request, error) {
-	console.log(`Error at ${request.method} ${request.url}: ${error}`);
-}
-
-function callback(response, error, rows) {
-	if (error) {
-		logError(error);
-		response.sendStatus(500);
-	} else if (rows) {
-		response.status(200).send(rows);
-	} else {
-		response.sendStatus(200);
-	}
-}
-
-app.get("/notes", function(request, response) {
-	let query = "SELECT * FROM notes ORDER BY id DESC",
-		args = [];
-
-	if (request.query.limit) {
-		query += " LIMIT ?";
-		args.push(request.query.limit);
-	}
-
-	db.all(query, args, (error, rows) => callback(response, error, rows));
+/* Fetches all existing notes.
+ * Each note is an object {id, content}.
+ */
+app.get("/notes", (request, response) => {
+	note.get()
+	.then(rows => response.status(200).send(rows))
+	.catch(error => response.sendStatus(500));
 });
 
-app.post("/notes", function(request, response) {
-	db.run(
-		"INSERT INTO notes (content) VALUES (?)",
-		[request.body.content],
-		error => callback(response, error)
-	);
+/* Creates a note.
+ *
+ * Body parameters
+ * ---------------
+ * content: String
+ *     Content of the new note.
+ */
+app.post("/notes", (request, response) => {
+	let {content} = request.body;
+
+	note.create(content)
+	.then(() => response.sendStatus(200))
+	.catch((error) => response.sendStatus(500));
 });
 
-app.put("/notes", function(request, response) {
-	db.run(
-		"UPDATE notes SET content = ? WHERE id = ?",
-		[request.body.content, request.body.id],
-		error => callback(response, error)
-	);
+/* Updates a note.
+ * 
+ * Body parameters
+ * ---------------
+ * id: Number
+ *     Note ID.
+ * content: String
+ *     New content for the note.
+ */
+app.put("/notes", (request, response) => {
+	let {id, content} = request.body;
+
+	note.update(id, content)
+	.then(() => response.sendStatus(200))
+	.catch((error) => response.sendStatus(500));
 });
 
-app.delete("/notes", function(request, response) {
-	db.run(
-		"DELETE FROM notes WHERE id = ?",
-		[request.body.id],
-		error => callback(response, error)
-	);
+/* Deletes a note.
+ *
+ * Body parameters
+ * ---------------
+ * id: Number
+ *     Note ID.
+ */
+app.delete("/notes", (request, response) => {
+	let {id} = request.body;
+
+	note.delete(id)
+	.then(() => response.sendStatus(200))
+	.catch((error) => response.sendStatus(500));
 });
 
-app.listen(port, function() {
-	console.log("Server is running on port " + port);
+app.listen(port, () => {
+	console.log(`Server is running on port ${port}`);
 });
